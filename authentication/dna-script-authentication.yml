@@ -1,0 +1,80 @@
+generated: '2026-08-04'
+method: probed
+source: https://syntax.dnascript.com/graphql
+docs: null
+summary:
+  types: []
+  documented_publicly: false
+  note: >-
+    DNA Script publishes NO public authentication documentation, no developer
+    portal and no machine-readable security scheme. This profile is what was
+    observed on the wire, not what the provider documents. It is deliberately NOT
+    wired as a canonical `Authentication` pointer in apis.yml, because the
+    ergonomics check that pointer feeds is "authentication documented" — and it is
+    not.
+observed:
+- surface: https://syntax.dnascript.com/graphql
+  transport: HTTPS POST (GraphQL over HTTP)
+  anonymous_introspection: true
+  anonymous_operations: false
+  unauthenticated_response:
+    http_status: 401
+    content_type: application/json;charset=UTF-8
+    body_shape: '{"timestamp":"...","status":401,"error":"Unauthorized","path":"/graphql"}'
+  inferred_model: >-
+    Customer session established through the SYNTAX Console web application at
+    https://syntax.dnascript.com/. The schema exposes login/logout, password
+    reset, email confirmation, invitation and "loginAs" mutations, plus a role and
+    group model (AccessPermission = WRITE | ADMIN | SERVICE) — i.e. an
+    organization-scoped, role-based product login, not an API-key or OAuth
+    developer credential.
+  schema_evidence:
+    mutations:
+    - logout
+    - changePassword
+    - changePasswordForUser
+    - forgotPassword
+    - resetPassword
+    - setPasswordForInvitedUser
+    - confirmEmail
+    - resendEmailActivation
+    - inviteUser
+    - loginAs
+    - deleteSessions
+    queries:
+    - getCurrentUser
+    - getAllRoles
+    - getLoginEvents
+    - validateVerificationCode
+    enums:
+      AccessPermission:
+      - WRITE
+      - ADMIN
+      - SERVICE
+- surface: https://syntax.dnascript.com/api/*
+  note: >-
+    Every REST path under /api (including /api/openapi.json, /api/v3/api-docs,
+    /api/swagger-ui/index.html, /api/actuator/health) returns 401 Unauthorized
+    with the same Spring-style JSON envelope. No spec is served anonymously.
+not_found:
+- oauth2 authorization server metadata (RFC 8414)
+- OpenID Connect discovery document
+- API keys / personal access tokens (no public issuance surface)
+- mTLS or signed-request scheme
+- any published auth guide, quickstart, or developer terms
+x-evidence:
+  fetched: '2026-08-04'
+  probes:
+  - url: https://syntax.dnascript.com/graphql
+    method: POST
+    http_status: 200
+    note: introspection query only; no data query was issued
+  - url: https://syntax.dnascript.com/graphql
+    method: GET
+    http_status: 401
+  - url: https://syntax.dnascript.com/api/openapi.json
+    http_status: 401
+  - url: https://syntax.dnascript.com/api/v3/api-docs
+    http_status: 401
+  - url: https://syntax.dnascript.com/api/.well-known/openid-configuration
+    http_status: 401

@@ -1,0 +1,183 @@
+generated: '2026-08-04'
+method: derived
+source: graphql/dna-script-syntax-console.graphql
+scope: DNA Script SYNTAX Console GraphQL API
+summary:
+  object_types: 136
+  input_types: 44
+  enums: 45
+  root_fields: {query: 70, mutation: 64, subscription: 2}
+  note: >-
+    Relationships below are read from field types in the introspected schema
+    (object-valued fields and *Id scalar reference fields). Only relationships
+    that appear verbatim in the schema are asserted.
+domains:
+- name: tenancy
+  entities: [Organization, Group, User, Role, License]
+- name: work
+  entities: [Project, Template, IDNAPlate, Sequence, CustomProcess]
+- name: fleet
+  entities: [Instrument, InstrumentModel, Kit, Reagent, PlateConfig]
+- name: execution
+  entities: [Run, RunSchedule, PrintJob, RunReport, PqaRunInfo]
+- name: activity
+  entities: [Notification, LoginEvent, InstrumentLog, RecentWork]
+entities:
+- name: Organization
+  types: [OrganizationDTO, OrganizationDataDTO, ProjectOrganizationDTO]
+  key: id (ID)
+  queries: [getOrganizationData, getListOfAdminsForOrganization, getProjectSettingsForOrganization,
+    getOrganizationOnPremiseLicenses, getRemoteOrganizations]
+  mutations: [updateOrganizationData, updateOrganizationLicense, switchToRemoteOrganization,
+    switchToOriginalOrganization]
+  relationships:
+  - {to: License, kind: has_one, via: license}
+  - {to: Contact, kind: has_one, via: contact}
+  - {to: Address, kind: has_one, via: address}
+  - {to: TimeZone, kind: has_one, via: timeZone}
+  - {to: User, kind: has_many, via: getUsers}
+  - {to: Project, kind: has_many, via: getAllProjects}
+- name: User
+  types: [UserDTO, UserDetailedDTO, UserListViewDTO, UserInProjectDTO, UserInGroupDTO,
+    UserInInstrumentDetailsDTO, OrganizationRemoteUserDTO]
+  key: id (ID!)
+  queries: [getCurrentUser, getUserById, getUsers, getRemoteUsers, getAllRoles, getUsersForNewProject]
+  mutations: [addUser, inviteUser, updateUser, updateUserProfile, deleteUser, reactivateUser,
+    enableUser, updateUserPreferences, inviteRemoteUser, updateRemoteUser, deactivateRemoteUser]
+  relationships:
+  - {to: Organization, kind: belongs_to, via: mainOrganization / organizationId}
+  - {to: Role, kind: has_one, via: role}
+  - {to: Group, kind: has_many, via: groups}
+  - {to: Project, kind: has_one, via: defaultProjectId}
+  - {to: Address, kind: has_one, via: address}
+  - {to: TimeZone, kind: has_one, via: timeZone}
+- name: Group
+  types: [GroupModel, GroupByIdDTO, GroupByIdWithUserDetailsDTO, GroupPageDTO]
+  key: id (ID!)
+  queries: [allGroups, getGroupById]
+  mutations: [createGroup, updateGroup, deprecateGroup, activateGroup, addUserToGroup,
+    removeUserFromGroup]
+  relationships:
+  - {to: User, kind: has_many, via: users}
+  - {to: User, kind: belongs_to, via: creator}
+- name: Project
+  types: [ProjectDTO, ProjectByIdDTO, ProjectDetailDTO, ProjectPageDTO, ProjectSettingsDTO]
+  key: id (ID!)
+  queries: [getAllProjects, getMyProjects, getProjectDetailsById, getProjectsForApprove,
+    getDefaultProjectForUser]
+  mutations: [createProject, updateProject, deleteProject, restoreProject]
+  relationships:
+  - {to: Organization, kind: belongs_to, via: organization}
+  - {to: User, kind: has_one, via: owner}
+  - {to: User, kind: has_one, via: admin}
+  - {to: User, kind: has_many, via: members}
+  - {to: Template, kind: has_many, via: getTemplatesPerProject}
+  - {to: Run, kind: has_many, via: getRunsPerProject}
+  - {to: GeneDetail, kind: has_one, via: geneDetail}
+- name: Template
+  types: [TemplateDetailsDTO, TemplatePerProjectDTO, TemplatePerUserDTO, TemplatePerProjectPageDTO,
+    TemplatePerUserPageDTO]
+  key: id (ID!)
+  queries: [getTemplatesPerProject, getTemplatesPerUser, getTemplatesAvailableForCurrentUser,
+    getTemplatesArchived, getTemplateDetails, validateTemplateUpdate]
+  mutations: [createTemplate, updateTemplate, deleteTemplate, restoreTemplate]
+  relationships:
+  - {to: User, kind: belongs_to, via: creator}
+  - {to: User, kind: has_one, via: projectOwner}
+  - {to: Sequence, kind: has_many, via: sequences}
+  - {to: IDNAPlate, kind: belongs_to, via: parentIDNAId}
+  - {to: Kit, kind: has_one, via: kitType}
+- name: IDNAPlate
+  types: [IDNADetailsDTO, CreateIDNAPlateDTO]
+  queries: [getIDNAPlates, getIDNAPlatesArchived, getIDNAPlateDetails, validateIDNATemplateUpdate]
+  mutations: [createIDNAPlate, updateIDNATemplate, copyIDNATemplate, deleteIDNATemplate,
+    restoreIDNATemplate]
+  relationships:
+  - {to: Template, kind: has_many, via: parentIDNAId}
+  - {to: CloningVector, kind: has_one, via: CloningVectorDTO}
+- name: Sequence
+  types: [SequenceDTO, RunSequenceDTO, NucleotideDTO, SequenceMessageDTO, NucleotideErrorDTO]
+  key: id (ID)
+  relationships:
+  - {to: Template, kind: belongs_to, via: TemplateDetailsDTO.sequences}
+  - {to: Nucleotide, kind: has_many, via: nucleotides / prefixes}
+  fields_of_note: [wellIndex, well, length, modsCount, clicksCount, purity, targetConcetration,
+    status, score]
+- name: Instrument
+  types: [InstrumentDTO, InstrumentByIdDTO, InstrumentDetailsDTO, InstrumentPageDTO,
+    InstrumentModelDTO, InstrumentInQueueDTO]
+  key: id (ID!)
+  queries: [getAllInstruments, getInstrumentModels, getInstrumentDetailsById, getInstrumentStatus,
+    getInstrumentDetailedStatus, getInstrumentsInQueue, getRunStatisticPerInstrument,
+    getRunHistoryPerInstrument, findSuitableInstrumentsForPrint, getSupportedInstrumentVersions,
+    validateInstrumentKitType]
+  mutations: [createInstrument, updateInstrument, deleteInstrument, synchronizeInstrumentKey,
+    regenerateCredentialsForInstrument, requestInstrumentLog]
+  relationships:
+  - {to: InstrumentModel, kind: has_one, via: model}
+  - {to: User, kind: has_many, via: members}
+  - {to: Kit, kind: has_one, via: kitType}
+  - {to: Run, kind: has_many, via: getRunsPerInstrument}
+  - {to: InstrumentLog, kind: has_many, via: getInstrumentLogById}
+  status_surface: [InstrumentStatusDTO, InstrumentDetailedStatusDTO, InstrumentComponentStatusDTO,
+    InstrumentConsumablesStatusDTO, InstrumentReagentStatusDTO, InstrumentRemainingCyclesDTO,
+    CoolerStatusDTO, WasteStatusDTO, WasteBottleStatusDTO, StationStatusDTO, DeckDTO]
+- name: Run
+  types: [RunPerProjectDTO, RunPerUserDTO, RunPerInstrumentDTO, RunPerGroupDTO, RunLightInfoDTO,
+    RunsScheduleDTO, PrintJobDTO]
+  key: id (ID!)
+  queries: [getRunLightInfo, getRunsPerProject, getRunGroupsPerProject, getRunsPerUser,
+    getRunsPerOrganizationByUser, getNowRunsPerOrganizationByUser, getRunSchedule,
+    getJobDuration]
+  mutations: [createRunScheduler, createGeneRunScheduler, createAndStartRun, deleteRun,
+    reprintFailedWells]
+  subscriptions: [subscribeForRunCheckInfo, subscribeForRunReport]
+  relationships:
+  - {to: Project, kind: belongs_to, via: getRunsPerProject}
+  - {to: Instrument, kind: has_one, via: assignedInstrument}
+  - {to: User, kind: belongs_to, via: creator}
+  - {to: Template, kind: belongs_to, via: parentIDNAId}
+  - {to: CustomProcess, kind: has_one, via: customProcess}
+  - {to: RunReport, kind: has_one, via: reportMetaLink / getRunReportDetails}
+- name: RunReport
+  types: [RunReportDetailsDTO, RunReportYieldSettingsDTO, RunReportVolumeSettingsDTO,
+    UploadReportResponseDTO]
+  queries: [getRunReportDetails, getPqaStatistic]
+  mutations: [uploadRunReport, updatePqaRunInfo]
+  relationships:
+  - {to: Project, kind: belongs_to, via: project}
+  - {to: Instrument, kind: belongs_to, via: instrument}
+  - {to: Sequence, kind: has_many, via: sequences}
+  - {to: Reagent, kind: has_many, via: reagentGroups / estimatedReagents}
+  - {to: PqaRunInfo, kind: has_one, via: pqaInfo}
+- name: Reagent
+  types: [RunReagentDTO, RunReagentDetailsDTO, RunReagentGroupDTO, RunReagentBottleDTO,
+    ReagentRequirementDTO, ReagentDetailedStatusDTO, ReagentMissingRequirementDTO]
+  relationships:
+  - {to: Run, kind: belongs_to, via: RunReportDetailsDTO.reagentGroups}
+  - {to: Kit, kind: belongs_to, via: KitInfoDTO}
+- name: Kit
+  types: [KitInfoDTO, KitTypeKeyValueDTO, KitPlateConfig, PlateConfigDTO, WellCountConfig]
+  queries: [getSupportedKitTypes, getSupportedIDNAKitTypes, getAllKitTypesInfo, getPlateConfigs]
+- name: CustomProcess
+  types: [CustomProcessInfoDTO, CustomProcessPageDTO, ProcessStatusDTO, StepInfoDTO,
+    MachineWashDTO]
+  queries: [getAllCustomProcesses, isValidCustomProcess, getCentrifugationProcesses]
+  mutations: [createCustomProcess, updateCustomProcess, deleteCustomProcess]
+- name: Notification
+  types: [NotificationDTO, NotificationPageDTO]
+  queries: [getMyNotifications]
+  mutations: [markNotificationAsRead]
+  relationships:
+  - {to: User, kind: belongs_to, via: getMyNotifications}
+- name: LoginEvent
+  types: [LoginEventDTO, LoginEventPageDTO]
+  queries: [getLoginEvents]
+- name: License
+  types: [LicenseContentDTO, LicenseDataDTO]
+  queries: [getOrganizationOnPremiseLicenses]
+  mutations: [updateOrganizationLicense]
+  relationships:
+  - {to: Organization, kind: belongs_to, via: OrganizationDataDTO.license}
+render: null
+render_note: No subway/ visual exists for this repo yet.

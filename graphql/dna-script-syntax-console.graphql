@@ -1,0 +1,2157 @@
+# generated: '2026-08-04'
+# method: probed
+# source: https://syntax.dnascript.com/graphql  (anonymous GraphQL introspection, HTTP 200)
+# spec: GraphQL SDL rendered from the endpoint's own __schema introspection response.
+# note: The endpoint answers introspection anonymously, but every query/mutation
+#       returns 401 Unauthorized without a customer session. Nothing below was
+#       obtained with credentials; no data was queried — schema only.
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+"An arbitrary precision signed decimal"
+scalar BigDecimal
+
+"A 64-bit signed integer"
+scalar Long
+
+enum AccessPermission {
+  WRITE
+  ADMIN
+  SERVICE
+}
+
+enum CentrifugationType {
+  DEFAULT
+  QUANTIFICATION
+  ELUTION
+}
+
+enum ContentFormat {
+  CSV
+  FASTA
+}
+
+enum ContentType {
+  UPLOAD
+  MANUAL
+}
+
+enum CoolerDoorStatus {
+  OPEN
+  CLOSED
+  UNKNOWN
+}
+
+enum CouplingLevel {
+  LOW
+  ACCEPTABLE
+  SUCCESSFUL
+}
+
+enum Direction {
+  ASC
+  DESC
+}
+
+enum DoorStatus {
+  UNKNOWN
+  OPEN
+  CLOSED_UNLOCKED
+  CLOSED_LOCKED
+}
+
+enum HardwareVersion {
+  UNSUPPORTED
+  V0
+  V1
+}
+
+enum InstrumentLogStatus {
+  PENDING
+  COMPLETED
+  TIMED_OUT
+}
+
+enum InstrumentVersion {
+  UNSUPPORTED
+  V_1_2
+  V_1_3
+  V_1_3_5
+  V_2_0
+  V_3_0
+  V_4_0
+  V_5_0
+  V_5_1
+  V_5_3
+  V_5_4
+  V_5_6
+  V_5_7
+  V_6_0
+}
+
+enum InstrumentVersionsUpdateMode {
+  ANY
+  INSTRUMENT_ONLY
+}
+
+enum KitType {
+  B3_96
+  B4_96
+  B5_HPURE_96
+  B5_HMASS_96
+  B5_HPLEX_384
+  B5_HPURE_96_BULK
+  B5_HMASS_96_BULK
+  B5_HPLEX_384_BULK
+}
+
+enum LoginEventType {
+  SUCCESS
+  FAILED
+}
+
+enum MachineWashType {
+  END_OF_RUN
+  END_OF_KIT
+  MAINTENANCE
+  UNKNOWN
+}
+
+enum ModStatus {
+  SUCCESSFUL_COUPLING
+  ACCEPTABLE
+  LOW_COUPLING
+  NON_QUANTIFIABLE
+  NO_MODIFICATION
+}
+
+enum NormalizationType {
+  NONE
+  LOWEST
+  TARGET
+}
+
+enum Nucleo {
+  A
+  C
+  G
+  T
+  R
+  Y
+  S
+  W
+  K
+  M
+  B
+  D
+  H
+  V
+  N
+  MOD
+  UNKNOWN
+  MOD_UNKNOWN
+  CLICK
+}
+
+enum OrganizationStatus {
+  ACTIVE
+  DELETED
+  INACTIVE
+}
+
+enum PlateMode {
+  SYNTHESIS
+  OLIGO
+  TRANSFER
+  DESALT
+  GAUGE_SYNTHESIS
+  UNKNOWN
+}
+
+enum PlateType {
+  PLATE_96
+  PLATE_384
+}
+
+enum PqaRunModsStatus {
+  FAIL
+  PASS
+}
+
+enum PrimerType {
+  VECTOR
+  ASSEMBLY
+  ERROR_CORRECTION
+  NONE
+}
+
+enum PrintJobVersion {
+  V_1
+  V_2
+}
+
+enum ProjectType {
+  GENE
+  SYNTAX
+}
+
+enum ReagentUsageUnion {
+  NUCLEOTIDES
+  SYNTH
+  PSP
+}
+
+enum RemoteUserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum RoleType {
+  ADMIN
+  USER
+  SERVICE
+}
+
+enum RunReportYieldLevel {
+  LOW
+  MEDIUM
+  NORMAL
+  HIGH
+}
+
+enum RunSequenceStatus {
+  PASSED
+  FAILED
+}
+
+enum RunStatus {
+  IN_QUEUE
+  IN_PROGRESS
+  COMPLETED
+  PROCESS_COMPLETED
+  FAILED
+  ABORTED
+  DELETED
+}
+
+enum SequenceMessageGroup {
+  UNKNOWN
+  DIFFICULTY
+  CLICK_POSITION
+  MOD_COUNT
+  NUC_UNKNOWN
+  LENGTH
+  CONCENTRATION
+  MOD_UNKNOWN
+  SCREEN_HAZARD
+}
+
+enum SequenceScore {
+  UNKNOWN
+  STANDARD
+  DIFFICULT
+  EXTREME
+  IMPOSSIBLE
+}
+
+enum SequenceStatus {
+  ACTIVE
+  WARN
+  ERROR
+  DELETED
+}
+
+enum ServiceStatus {
+  OK
+  ERROR
+  WARNING
+}
+
+enum ServiceType {
+  DB
+  REDIS
+  KAFKA
+  NOTIFICATION
+  LICENSE
+  IOT
+  PURITY
+}
+
+enum SipperStatus {
+  UNKNOWN
+  LOWERED
+  RAISED
+  RAISING
+  LOWERING
+}
+
+enum SortProjectField {
+  CREATOR
+  NAME
+  UPDATED_AT
+}
+
+enum Status {
+  ACTIVE
+  DELETED
+}
+
+enum TemplateMessageGroup {
+  UNKNOWN
+  NUCLEOTIDE
+  SEQUENCE
+  TEMPLATE
+}
+
+enum TemplateStatus {
+  FATAL
+  DRAFT
+  ERROR
+  WARNING
+  READY
+  ACTIVE
+  DELETE
+  OUTDATED
+  LOCKED
+}
+
+enum UserOperation {
+  CREATE_CLIENT
+  SET_CLIENT_PASSWORD
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  DELETED
+  DISABLED
+}
+
+interface RecentWorkItemDTO {
+  id: ID!
+  name: String
+  updated: String
+}
+
+union ProcessAbstract = PrintJobDTO | MachineWashDTO
+
+input AddressDTO {
+  country: String
+  state: String
+  city: String
+  street1: String
+  street2: String
+  zip: String
+}
+
+input AddressInputDTO {
+  country: String!
+  state: String!
+  city: String!
+  street1: String!
+  street2: String!
+  zip: String!
+}
+
+input AttachmentDTO {
+  fileName: String
+  content: String
+}
+
+input ContactDTO {
+  id: ID
+  firstName: String
+  lastName: String
+  email: String
+  title: String
+  workNumber: String
+  mobileNumber: String
+}
+
+input CreateAndStartRunDTO {
+  templateId: ID!
+  instrumentId: ID!
+  description: String
+}
+
+input CreateGroupDTO {
+  name: String!
+  description: String
+}
+
+input CreateIDNAPlateDTO {
+  userId: ID
+  fileName: String
+  content: String!
+  plateType: PlateType
+  kitType: KitType
+}
+
+input CreateInstrumentDTO {
+  name: String
+  location: String
+  instrumentType: String
+  modelId: ID!
+  serialNumber: String!
+  systemVersion: InstrumentVersion!
+  printJobVersion: PrintJobVersion
+  installationDate: String
+  serviceReminder: Boolean
+  restrictedAccess: Boolean
+  admin: EntityByIdDTO
+  members: [EntityByIdDTO]
+}
+
+input CreateProjectDTO {
+  name: String!
+  description: String
+  restrictedAccess: Boolean
+  color: String
+  badge: String
+  tags: String
+  budget: Float!
+  currency: String!
+  owner: EntityByIdDTO!
+  admin: EntityByIdDTO!
+  users: [EntityByIdDTO]
+  projectType: ProjectType!
+}
+
+input CreateTemplateDTO {
+  userId: ID
+  fileName: String
+  content: String!
+  projectId: ID
+  parentPlateId: ID
+  type: ContentType
+  plateType: PlateType
+  kitType: KitType
+  runPurityEstimate: Boolean
+  runBioSecurityService: Boolean
+  normalizationType: NormalizationType
+  targetConcentration: Float
+  projectType: ProjectType
+}
+
+input CustomProcessCreateDTO {
+  name: String!
+  data: String!
+}
+
+input CustomProcessUpdateDTO {
+  id: ID!
+  name: String!
+  data: String!
+}
+
+input DynamicSecurityRequest {
+  instrumentId: String!
+  command: UserOperation!
+}
+
+input EntityByIdDTO {
+  id: ID!
+}
+
+input GeneRunSchedulerCreateDTO {
+  projectId: ID!
+  instrumentId: ID!
+}
+
+input GroupsFilterDTO {
+  searchText: String
+  page: PageInfoDTO!
+  sort: SortInfoDTO!
+  status: String
+}
+
+input InstallationFileFilterDTO {
+  page: PageInfoDTO!
+  sort: SortInfoDTO!
+}
+
+input InstrumentFilterDTO {
+  page: PageInfoDTO!
+  sort: SortInfoDTO!
+}
+
+input InstrumentInQueueFilterDTO {
+  instrumentId: ID
+  startDate: String
+  endDate: String
+}
+
+input InstrumentLogCreateDTO {
+  fromDate: String
+  toDate: String
+  instrumentId: ID
+}
+
+input JobDurationDTO {
+  templateId: ID!
+  instrumentId: ID!
+}
+
+input LoginDTO {
+  userName: String!
+  password: String!
+  rememberMe: Boolean
+}
+
+input LoginEventFilterDTO {
+  searchText: String
+  dateFrom: String
+  dateTo: String
+  page: PageInfoDTO
+  sort: SortInfoDTO
+}
+
+input NowRunsPerOrganizationByUserFilterDTO {
+  userId: ID
+  startDate: String!
+  endDate: String!
+}
+
+input OrganizationUpdateDTO {
+  maxLoginFailedAttempts: Int
+  companyName: String
+  timeZoneId: String
+  contact: ContactDTO
+  address: AddressDTO
+}
+
+input PageInfoDTO {
+  page: Int!
+  size: Int!
+}
+
+input ProjectFilterDTO {
+  status: Status!
+  projectType: ProjectType!
+}
+
+input RecentWorkFilterDTO {
+  size: Int!
+  runs: Boolean!
+  templates: Boolean!
+}
+
+input RemoteUserInviteDTO {
+  email: String!
+  roleId: ID!
+  expirationDate: String
+}
+
+input RemoteUserUpdateDTO {
+  id: ID!
+  roleId: ID!
+  expirationDate: String
+}
+
+input ReprintFailedWellDTO {
+  projectId: ID!
+  instrumentId: ID!
+  version: ID
+}
+
+input RunPerInstrumentFilterDTO {
+  instrumentId: ID
+  startDate: String!
+  endDate: String!
+}
+
+input RunPerProjectFilterDTO {
+  projectId: ID
+  userId: ID
+}
+
+input RunScheduleFilterDTO {
+  instrumentIds: [ID]
+  startDate: String
+  endDate: String
+}
+
+input RunSchedulerCreateDTO {
+  templateId: ID!
+  instrumentId: ID!
+  description: String
+  centrifugationType: CentrifugationType
+  customProcessId: ID
+}
+
+input SequenceInfoDTO {
+  id: ID
+  well: String
+  data: String!
+  name: String
+  usePlateNorm: Boolean
+  normalizationType: NormalizationType
+  targetConcetration: Float
+  status: SequenceStatus!
+}
+
+input SortInfoDTO {
+  field: String!
+  direction: Direction!
+}
+
+input SortProjectInfoDTO {
+  field: SortProjectField!
+  direction: Direction!
+}
+
+input TemplateCopyDTO {
+  templateId: ID!
+  name: String!
+}
+
+input TemplateFilterDTO {
+  projectId: ID
+  userId: ID
+  plateType: PlateType
+  kitType: KitType
+  projectType: ProjectType
+}
+
+input TemplateUpdateDTO {
+  templateId: ID!
+  name: String
+  normalizationType: NormalizationType
+  targetConcentration: Float
+  sequences: [SequenceInfoDTO!]!
+  runPurityEstimate: Boolean
+  runBioSecurityService: Boolean
+  parentPlateId: ID
+}
+
+input UpdateConcentrationDTO {
+  runId: ID!
+  projectId: ID!
+  wellInfo: [WellInfoDTO!]!
+}
+
+input UpdateGroupDTO {
+  id: ID!
+  name: String!
+  description: String
+  creatorId: ID
+  status: Status
+}
+
+input UpdateInstrumentDTO {
+  id: ID
+  name: String
+  location: String
+  serialNumber: String!
+  modelId: ID
+  systemVersion: InstrumentVersion
+  installationDate: String
+  serviceReminder: Boolean
+  restrictedAccess: Boolean
+  admin: EntityByIdDTO
+  members: [EntityByIdDTO]
+}
+
+input UpdatePqaRunInfoDTO {
+  runId: ID!
+  conditionName: String
+  plateTitle: String
+  comment: String
+}
+
+input UpdateProjectDTO {
+  id: ID!
+  name: String!
+  description: String
+  projectType: ProjectType
+  restrictedAccess: Boolean
+  color: String
+  badge: String
+  tags: String
+  budget: Float!
+  currency: String!
+  owner: EntityByIdDTO!
+  admin: EntityByIdDTO!
+  users: [EntityByIdDTO]
+}
+
+input UploadReportRequestDTO {
+  userId: ID
+  fileName: String
+  content: String
+  serialNumber: String
+}
+
+input UserAddDTO {
+  username: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  title: String
+  groupIds: [ID!]!
+  roleId: ID!
+}
+
+input UserFilterDTO {
+  searchText: String!
+  statuses: [UserStatus]
+  page: PageInfoDTO!
+  sort: SortInfoDTO
+  loggedUserExcluded: Boolean
+}
+
+input UserInviteDTO {
+  username: String!
+  firstName: String!
+  lastName: String!
+  title: String
+  groupIds: [ID!]!
+  roleId: ID!
+}
+
+input UserPreferencesRequestDTO {
+  tooltipOnSeqPageIsClosed: Boolean
+}
+
+input UserProfileUpdateDTO {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  workPhone: String
+  cellPhone: String
+  homePhone: String
+  title: String
+  address: AddressInputDTO!
+  timeZoneId: String
+}
+
+input UserUpdateDTO {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  workPhone: String
+  cellPhone: String
+  homePhone: String
+  title: String
+  address: AddressInputDTO!
+  groupIds: [ID!]
+  roleId: ID
+  timeZoneId: String
+}
+
+input WellInfoDTO {
+  well: String!
+  actualConcentration: Float!
+}
+
+type ActiveModsAndClicksDTO {
+  modsAndClicks: [String]
+  validClickPairs: [DoubleClickPair]
+}
+
+type AdditionalItemDTO {
+  key: String
+  value: String
+}
+
+type Address {
+  country: String
+  state: String
+  city: String
+  street1: String
+  street2: String
+  zip: String
+}
+
+type AttachmentLinkDTO {
+  id: ID
+  url: String
+}
+
+type CloningVectorDTO {
+  id: ID!
+  name: String!
+  sequence: String!
+}
+
+type ConcentrationLimitsDTO {
+  min: BigDecimal!
+  max: BigDecimal!
+  defaultValue: BigDecimal!
+  kitType: KitType
+}
+
+type Contact {
+  id: ID
+  firstName: String
+  lastName: String
+  email: String
+  title: String
+  workNumber: String
+  mobileNumber: String
+}
+
+type CoolerStatusDTO {
+  isTrayPresent: Boolean
+  sippersStatus: SipperStatus
+  doorStatus: CoolerDoorStatus
+  temperature: Float
+}
+
+type CouplingRateDTO {
+  nucleotide: String!
+  rate: BigDecimal!
+}
+
+type CrossElutionDTO {
+  wellsFrom: [String]
+  wellsTo: [String]
+}
+
+type CustomProcessInfoDTO {
+  id: ID
+  name: String
+  organizationId: ID
+  downloadUrl: String
+}
+
+type CustomProcessPageDTO {
+  data: [CustomProcessInfoDTO]
+  totalElementsCount: Int
+}
+
+type DeckDTO {
+  isTipboxPresented: Boolean
+  isLidPresented: Boolean
+}
+
+type DoubleClickPair {
+  fluorophore: String
+  quencher: String
+}
+
+type DynamicSecurityResponse {
+  instrumentId: String
+  password: String
+}
+
+type ErrorDTO {
+  code: String
+  description: String
+}
+
+type GeneDetailDTO {
+  vector: CloningVectorDTO
+  vectorPrimers: [String!]
+}
+
+type GroupByIdDTO {
+  id: ID!
+  name: String!
+  description: String
+  status: String
+  creator: UserInGroupDTO
+  lastUpdatedDate: String
+  users: [UserInGroupDTO]
+}
+
+type GroupByIdWithUserDetailsDTO {
+  id: ID!
+  name: String!
+  description: String
+  status: String
+  creator: UserInGroupDTO
+  lastUpdatedDate: String
+  users: [UserForGroupByIdDTO]
+}
+
+type GroupModel {
+  id: ID!
+  name: String!
+  description: String
+  status: String
+  creatorId: ID
+  creatorFirstName: String
+  creatorLastName: String
+  lastUpdatedDate: String
+  members: String
+  totalGroupMembers: Int
+}
+
+type GroupPageDTO {
+  data: [GroupByIdDTO]
+  totalElementsCount: Int
+}
+
+type IDNADetailsDTO {
+  id: ID
+  name: String
+  designUrl: String
+}
+
+type InstallationFileInfoDTO {
+  fileName: String
+  releaseVersion: String
+  releaseDate: String
+}
+
+type InstallationFilePageDTO {
+  data: [InstallationFileInfoDTO]
+  totalElementsCount: Int
+}
+
+type InstrumentByIdDTO {
+  id: ID
+  name: String
+  serialNumber: String
+  version: InstrumentVersion
+  modelId: ID
+  printJobVersion: PrintJobVersion
+}
+
+type InstrumentComponentStatusDTO {
+  initialization: Int
+  "# 0 to 100 (%)"
+  door: DoorStatus
+  waste: WasteStatusDTO
+  cooler: CoolerStatusDTO
+  enclosureTemperature: Float
+  "# Celsius"
+  stations: [StationStatusDTO]
+}
+
+"#############"
+type InstrumentConsumablesStatusDTO {
+  kitType: KitType
+  remainingCycles: [InstrumentRemainingCyclesDTO]
+  reagentBottles: [ReagentDetailedStatusDTO]
+  accessoryRackVials: [ReagentDetailedStatusDTO]
+}
+
+type InstrumentDTO {
+  id: ID!
+  name: String
+  serialNumber: String
+  version: InstrumentVersion
+  model: InstrumentModelDTO
+  installationDate: String
+  serviceDate: String
+  lastUpdatedDate: String
+  location: String
+  status: String
+  image: String
+}
+
+type InstrumentDetailedStatusDTO {
+  componentStatus: InstrumentComponentStatusDTO
+  consumablesStatus: InstrumentConsumablesStatusDTO
+  processStatus: ProcessStatusDTO
+}
+
+type InstrumentDetailsDTO {
+  id: ID!
+  name: String
+  location: String
+  instrumentType: String
+  model: InstrumentModelDTO
+  serialNumber: String
+  version: InstrumentVersion
+  hardwareVersion: String
+  softwareVersion: String
+  printJobVersion: PrintJobVersion
+  installationDate: String
+  serviceDate: String
+  lastUpdatedDate: String
+  serviceReminder: Boolean
+  restrictedAccess: Boolean
+  status: String
+  image: String
+  kitType: KitType
+  members: [UserInInstrumentDetailsDTO]
+  versionsUpdateMode: InstrumentVersionsUpdateMode
+  mqttPassword: String
+}
+
+type InstrumentErrorDTO {
+  code: Int @deprecated
+  description: String
+  location: String
+  type: String
+  unit: String
+  mitigation: String
+}
+
+type InstrumentInQueueDTO {
+  id: ID
+  name: String
+  startDate: String
+  endDate: String
+}
+
+type InstrumentKitTypeValidationResponseDTO {
+  result: String
+  message: String
+}
+
+type InstrumentLogDTO {
+  id: ID!
+  fromDate: String
+  toDate: String
+  downloadUrl: String
+  status: InstrumentLogStatus
+  errors: [String]
+  userId: ID
+}
+
+type InstrumentModelDTO {
+  id: ID!
+  name: String!
+  version: HardwareVersion!
+  supportedSoftware: [InstrumentVersion!]!
+}
+
+type InstrumentPageDTO {
+  data: [InstrumentDTO]
+  totalElementsCount: Int
+}
+
+type InstrumentPerRunDTO {
+  id: ID!
+  name: String
+  printJobVersion: PrintJobVersion
+}
+
+type InstrumentReagentStatusDTO {
+  reagentUsageUnion: ReagentUsageUnion!
+  volumePercentageLeft: Float
+  expirationDate: String
+  isUsable: Boolean
+}
+
+type InstrumentRemainingCyclesDTO {
+  plateType: PlateType!
+  cyclesCount: Int
+}
+
+type InstrumentStatusDTO {
+  reagents: [InstrumentReagentStatusDTO]
+  cycles: [InstrumentRemainingCyclesDTO]
+}
+
+type KitInfoDTO {
+  kitType: KitType!
+  kitLabel: String
+  plateConfig: KitPlateConfig!
+  concentrationProperties: ConcentrationLimitsDTO!
+}
+
+type KitPlateConfig {
+  type: PlateType!
+  maxWarningMers: Int!
+  maxErrorMers: Int!
+  minWarningMers: Int!
+  minErrorMers: Int!
+  maxCyclesPerTemplate: Int!
+  maxIdnaMers: Int
+  minIdnaMers: Int
+  maxModsPerTemplate: Int
+  maxModsPerSequence: Int
+  wellCountConfig: [WellCountConfig!]!
+}
+
+type KitTypeKeyValueDTO {
+  plateType: PlateType!
+  kitInfo: [KitInfoDTO]
+}
+
+type LicenseContentDTO {
+  code: String
+  validFrom: String
+  validTill: String
+}
+
+type LicenseDataDTO {
+  code: String
+  validFrom: String
+  validTill: String
+  installationName: String
+}
+
+type LoginEventDTO {
+  id: ID
+  username: String
+  ipAddress: String
+  type: LoginEventType
+  remarks: String
+  createdAt: String
+}
+
+type LoginEventPageDTO {
+  data: [LoginEventDTO]
+  totalElementsCount: Int
+}
+
+type MachineWashDTO {
+  type: MachineWashType
+}
+
+type MissingRequirementsDTO {
+  kitType: String
+  reagentMissingRequirement: ReagentMissingRequirementDTO
+  plateMissingRequirements: [PlateRequirementDTO]
+  capsMismatch: Boolean
+}
+
+type Mutation {
+  updateOrganizationData(organization: OrganizationUpdateDTO!): OperationResultDTO
+  updateOrganizationLicense(license: String!): LicenseDataDTO
+  confirmEmail(userId: ID!, verificationCode: String!): OperationResultDTO
+  enableUser(userId: ID!, verificationCode: String!): OperationResultDTO
+  deleteSessions(userId: ID!, verificationCode: String!): OperationResultDTO
+  resendEmailActivation(email: String!): OperationResultDTO
+  updateUser(user: UserUpdateDTO!): UserDetailedDTO
+  updateUserProfile(user: UserProfileUpdateDTO!): UserDetailedDTO
+  addUser(user: UserAddDTO!): OperationResultDTO
+  inviteUser(user: UserInviteDTO!): OperationResultDTO
+  resendInvitationEmail(email: String!): OperationResultDTO
+  deleteUser(id: ID!): OperationResultDTO
+  reactivateUser(id: ID!): OperationResultDTO
+  loginAs(login: LoginDTO): OperationResultDTO
+  logout: OperationResultDTO
+  createGroup(groupData: CreateGroupDTO): GroupByIdDTO
+  updateGroup(groupData: UpdateGroupDTO): GroupByIdDTO
+  deprecateGroup(id: ID!): OperationResultDTO
+  activateGroup(id: ID!): OperationResultDTO
+  changePassword(oldPassword: String!, newPassword: String!): OperationResultDTO
+  changePasswordForUser(userId: ID!, newPassword: String!): OperationResultDTO
+  addUserToGroup(userId: ID!, groupId: ID!): OperationResultDTO
+  removeUserFromGroup(userId: ID!, groupId: ID!): OperationResultDTO
+  forgotPassword(email: String!): OperationResultDTO
+  resetPassword(userId: ID!, verificationCode: String!, newPassword: String!): OperationResultDTO
+  setPasswordForInvitedUser(userId: ID!, verificationCode: String!, password: String!): OperationResultDTO
+  createProject(inputData: CreateProjectDTO!): ProjectByIdDTO
+  updateProject(inputData: UpdateProjectDTO!): ProjectByIdDTO
+  createTemplate(inputData: CreateTemplateDTO): TemplateDetailsDTO
+  createIDNAPlate(inputData: CreateIDNAPlateDTO): TemplateDetailsDTO
+  updateTemplate(update: TemplateUpdateDTO): TemplateDetailsDTO
+  deleteTemplate(templateId: ID!): OperationResultDTO
+  restoreTemplate(templateId: ID!): OperationResultDTO
+  deleteIDNATemplate(templateId: ID!): OperationResultDTO
+  restoreIDNATemplate(templateId: ID!): OperationResultDTO
+  updateIDNATemplate(inputData: TemplateUpdateDTO!): TemplateDetailsDTO
+  copyIDNATemplate(inputData: TemplateCopyDTO!): TemplateDetailsDTO
+  createInstrument(inputData: CreateInstrumentDTO): InstrumentByIdDTO
+  updateInstrument(inputData: UpdateInstrumentDTO): InstrumentByIdDTO
+  synchronizeInstrumentKey(instrumentId: ID!): OperationResultDTO
+  createRunScheduler(inputData: RunSchedulerCreateDTO): RunSchedulerCreateResponseDTO
+  createAndStartRun(inputData: CreateAndStartRunDTO): RunSchedulerCreateResponseDTO
+  uploadRunReport(inputData: UploadReportRequestDTO): UploadReportResponseDTO
+  updatePqaRunInfo(inputData: UpdatePqaRunInfoDTO): OperationResultDTO
+  deleteInstrument(instrumentId: ID!, applyDeleteInQueueJobs: Boolean = false): OperationResultDTO
+  regenerateCredentialsForInstrument(instrumentId: ID!): OperationResultDTO
+  deleteRun(runId: ID!): OperationResultDTO
+  deleteProject(projectId: ID!): OperationResultDTO
+  restoreProject(projectId: ID!): OperationResultDTO
+  markNotificationAsRead(notificationId: ID!): OperationResultDTO
+  updateUserPreferences(inputData: UserPreferencesRequestDTO!): OperationResultDTO
+  requestInstrumentLog(request: InstrumentLogCreateDTO): InstrumentLogDTO
+  createGeneRunScheduler(inputData: GeneRunSchedulerCreateDTO!): [RunSchedulerCreateResponseDTO]
+  reprintFailedWells(inputData: ReprintFailedWellDTO): Boolean
+  createCustomProcess(create: CustomProcessCreateDTO!): CustomProcessInfoDTO
+  updateCustomProcess(update: CustomProcessUpdateDTO!): CustomProcessInfoDTO
+  deleteCustomProcess(id: ID!): OperationResultDTO
+  inviteRemoteUser(inputData: RemoteUserInviteDTO!): OperationResultDTO
+  updateRemoteUser(inputData: RemoteUserUpdateDTO!): OperationResultDTO
+  deactivateRemoteUser(organizationRemoteUserId: ID!): OperationResultDTO
+  switchToRemoteOrganization(organizationRemoteUserId: ID!): OperationResultDTO
+  switchToOriginalOrganization: OperationResultDTO
+  updateConcentration(inputData: UpdateConcentrationDTO!): Boolean
+  dynamicSecurityUserManagement(inputData: DynamicSecurityRequest!): DynamicSecurityResponse
+}
+
+type NotificationDTO {
+  id: ID!
+  body: String
+  createdDate: String
+  additionalData: [AdditionalItemDTO]
+}
+
+type NotificationPageDTO {
+  data: [NotificationDTO]
+  totalElementsCount: Int
+}
+
+type NucleotideDTO {
+  data: String
+  type: Nucleo
+}
+
+type NucleotideErrorDTO {
+  index: Int
+  length: Int
+  message: String
+  group: SequenceMessageGroup
+}
+
+type OperationResultDTO {
+  status: Int
+  message: String
+}
+
+type OrganizationDTO {
+  id: ID!
+  name: String
+}
+
+type OrganizationDataDTO {
+  id: ID
+  status: OrganizationStatus
+  license: LicenseContentDTO
+  aesKey: String
+  maxLoginFailedAttempts: Int
+  companyName: String
+  updatedAt: String
+  createdAt: String
+  timeZone: TimeZoneDTO
+  contact: Contact
+  address: Address
+  printingEnabled: Boolean
+  geneEnabled: Boolean
+  clicksEnabled: Boolean
+  modsEnabled: Boolean
+  degeneratesEnabled: Boolean
+  customProcessEnabled: Boolean
+  biosecurityEnabled: Boolean
+}
+
+type OrganizationRemoteUserDTO {
+  id: ID!
+  user: UserDTO
+  organization: OrganizationDTO
+  role: RoleDTO
+  status: RemoteUserStatus
+  expirationDate: String
+  createdAt: String
+}
+
+type PlateConfigDTO {
+  maxWarningMers: Int
+  maxErrorMers: Int
+  minWarningMers: Int
+  minErrorMers: Int
+  maxCyclesPerTemplate: Int
+}
+
+type PlateRequirementDTO {
+  name: String
+  plateType: PlateType
+  designId: String
+  plateMode: PlateMode
+  label: String
+  partNumber: String
+}
+
+type PqaCouplingLevel {
+  level: CouplingLevel!
+  min: Int!
+  max: Int!
+}
+
+type PqaModConfig {
+  mod: String!
+  couplingLevels: [PqaCouplingLevel!]!
+}
+
+type PqaRunGroupStatisticDTO {
+  groupName: String!
+  minSizePmol: Int!
+  maxInvalidWellsNumber: Int!
+  totalWellNumber: Int!
+  averageYieldPmol: Float!
+  minInGroup: Float!
+  maxInGroup: Float!
+  standardDeviationPmol: Float!
+  coefficientOfVariation: Float!
+  invalidWellsNumber: Int!
+}
+
+type PqaRunInfoDTO {
+  conditionName: String
+  plateTitle: String
+  comment: String
+}
+
+type PqaRunModDTO {
+  label: String!
+  couplingPercent: Int!
+  level: CouplingLevel!
+}
+
+type PqaRunModsStatisticDTO {
+  wellMods: [PqaRunWellModsDTO!]!
+  status: PqaRunModsStatus!
+  modsConfig: [PqaModConfig!]!
+}
+
+type PqaRunStatisticDTO {
+  groupsInfo: [PqaRunGroupStatisticDTO]!
+  modsInfo: PqaRunModsStatisticDTO
+}
+
+type PqaRunWellModsDTO {
+  well: String!
+  sequenceName: String!
+  mods: [PqaRunModDTO!]!
+  conclusion: CouplingLevel!
+}
+
+type PrintJobDTO {
+  id: ID!
+  name: String
+}
+
+type PrintRequirementsMatchingDTO {
+  isPrintingEnabled: Boolean
+  missingRequirements: MissingRequirementsDTO
+  waste: WasteBottleStatusDTO
+  deck: DeckDTO
+  errors: [ErrorDTO]
+  warnings: [String]
+}
+
+"#############"
+type ProcessStatusDTO {
+  process: ProcessAbstract
+  startTime: String
+  "ISO8601"
+  estimatedRemainingTime: Long
+  "# seconds"
+  currentStep: StepInfoDTO
+  errors: [InstrumentErrorDTO]
+  warnings: [String]
+}
+
+type ProjectByIdDTO {
+  id: ID
+  name: String
+  description: String
+  projectType: ProjectType
+}
+
+type ProjectDTO {
+  id: ID!
+  name: String!
+  projectType: ProjectType!
+  creator: UserInProjectDTO
+  admin: UserInProjectDTO
+  members: [UserInProjectDetailsDTO]
+  updatedAt: String
+  createdAt: String
+  countOfRuns: Int
+  completedRuns: Int
+  runsInQueue: Int
+  countOfOligos: Int
+  countOfPassedOligos: Int
+  percentOfOligosMore200: Float
+  percentOfPassedOligos: Float
+  countOfReadyTemplates: Int
+  countOfErrorTemplates: Int
+  countOfWarningTemplates: Int
+  countOfDraftTemplates: Int
+  color: String
+  status: String
+  restrictedAccess: Boolean
+}
+
+type ProjectDetailDTO {
+  id: ID!
+  name: String
+  status: Status!
+  projectType: ProjectType!
+  description: String
+  countOfRuns: Int
+  completedRuns: Int
+  runsInQueue: Int
+  countOfDraftTemplates: Int
+  countOfErrorTemplates: Int
+  countOfTemplates: Int
+  owner: UserInProjectDTO
+  admin: UserInProjectDTO
+  members: [UserInProjectDetailsDTO]
+  createdAt: String
+  updatedAt: String
+  percentOfPassedOligos: Float
+  budget: Float
+  expense: Float
+  currency: String
+  restrictedAccess: Boolean
+  organization: ProjectOrganizationDTO
+  geneDetail: GeneDetailDTO
+}
+
+type ProjectOrganizationDTO {
+  id: ID!
+  name: String
+}
+
+type ProjectPageDTO {
+  data: [ProjectDTO]
+  totalElementsCount: Int
+}
+
+type ProjectSettingsDTO {
+  id: ID
+  name: String
+  currency: String
+  budget: Float
+  budgetEnforced: Boolean
+  projectPerUser: Int
+  projectPerUserEnforced: Boolean
+  budgetPerProject: Float
+  budgetPerProjectEnforced: Boolean
+  projectPerOrg: Int
+  projectPerOrgEnforced: Boolean
+}
+
+type Query {
+  getOrganizationData: OrganizationDataDTO
+  allGroups(filter: GroupsFilterDTO): GroupPageDTO
+  getGroupById(groupId: ID!): GroupByIdWithUserDetailsDTO
+  getUserById(id: ID!): UserDetailedDTO
+  getCurrentUser: UserDetailedDTO
+  getUsers(filter: UserFilterDTO): UserPageDTO
+  getRemoteUsers: [OrganizationRemoteUserDTO]
+  getRemoteOrganizations: [OrganizationRemoteUserDTO]
+  getAllRoles: [RoleDTO]
+  getAllProjects(filter: ProjectFilterDTO!): ProjectPageDTO
+  getMyProjects(filter: ProjectFilterDTO!): ProjectPageDTO
+  getProjectDetailsById(id: ID!): ProjectDetailDTO
+  getTemplatesPerProject(filter: TemplateFilterDTO): TemplatePerProjectPageDTO
+  getTemplatesPerUser(filter: TemplateFilterDTO): TemplatePerUserPageDTO
+  getIDNAPlates(filter: TemplateFilterDTO): TemplatePerUserPageDTO
+  getIDNAPlatesArchived(filter: TemplateFilterDTO): TemplatePerUserPageDTO
+  getInstallationFiles(filter: InstallationFileFilterDTO): InstallationFilePageDTO
+  getTemplatesAvailableForCurrentUser(filter: TemplateFilterDTO): TemplatePerUserPageDTO
+  getTemplatesArchived(filter: TemplateFilterDTO): TemplatePerUserPageDTO
+  getTemplateDetails(templateId: ID!): TemplateDetailsDTO
+  getIDNAPlateDetails(templateId: ID!): TemplateDetailsDTO
+  getSequenceConcentrationLimits(kitType: KitType!): ConcentrationLimitsDTO @deprecated
+  getAllSequenceConcentrationLimitsByProjectType(projectType: ProjectType!): [ConcentrationLimitsDTO!]!
+  getRunLightInfo(runId: Long!): RunLightInfoDTO
+  getRunsPerProject(filter: RunPerProjectFilterDTO): RunPerProjectPageDTO
+  getRunGroupsPerProject(filter: RunPerProjectFilterDTO): RunGroupPerProjectPageDTO
+  getRunsPerUser(filter: RunPerProjectFilterDTO): RunPerUserPageDTO
+  getRunsPerOrganizationByUser(filter: RunPerProjectFilterDTO): RunPerUserPageDTO
+  getNowRunsPerOrganizationByUser(filter: NowRunsPerOrganizationByUserFilterDTO): [RunPerUserDTO]
+  getListOfAdminsForOrganization: [UserInGroupDTO]
+  getProjectSettingsForOrganization: ProjectSettingsDTO
+  getProjectsForApprove: [ProjectByIdDTO]
+  getDefaultProjectForUser: ProjectByIdDTO
+  getAllInstruments(filter: InstrumentFilterDTO): InstrumentPageDTO
+  getInstrumentModels: [InstrumentModelDTO]
+  getJobDuration(inputData: JobDurationDTO): Int @deprecated
+  getInstrumentDetailsById(id: ID!): InstrumentDetailsDTO
+  getRunStatisticPerInstrument(id: ID!): [RunsPerInstrument]
+  getRunHistoryPerInstrument(instrumentFilterDTO: RunPerInstrumentFilterDTO): RunsPerInstrumentPageDTO
+  getInstrumentStatus(id: ID!): InstrumentStatusDTO
+  getInstrumentDetailedStatus(id: ID!): InstrumentDetailedStatusDTO
+  getInstrumentsInQueue(filter: InstrumentInQueueFilterDTO): [InstrumentInQueueDTO]
+  validateVerificationCode(userId: ID!, verificationCode: String!): OperationResultDTO
+  getRunSchedule(filter: RunScheduleFilterDTO): [RunsScheduleDTO]
+  validateTemplateUpdate(update: TemplateUpdateDTO!): TemplateDetailsDTO
+  validateIDNATemplateUpdate(update: TemplateUpdateDTO!): TemplateDetailsDTO
+  findSuitableInstrumentsForPrint(templateId: ID): [InstrumentByIdDTO]
+  getRunReportDetails(runId: ID!): RunReportDetailsDTO
+  getPqaStatistic(runId: ID!): PqaRunStatisticDTO!
+  getRecentWork(filter: RecentWorkFilterDTO!): RecentWorkDTO
+  getMyNotifications(pageInfo: PageInfoDTO): NotificationPageDTO
+  getActiveModsAndClicks(kitType: KitType): ActiveModsAndClicksDTO
+  getOrganizationOnPremiseLicenses: [LicenseDataDTO]
+  getLoginEvents(filter: LoginEventFilterDTO): LoginEventPageDTO
+  getPlateConfigs(templateId: ID!): PlateConfigDTO
+  validateInstrumentKitType(inputData: RunSchedulerCreateDTO): InstrumentKitTypeValidationResponseDTO
+  systemInfo: [ServiceInfoDTO!]!
+  getSupportedInstrumentVersions: [InstrumentVersion!]!
+  getRedboxVersion: String
+  getSupportedKitTypes: [KitTypeKeyValueDTO]
+  getSupportedIDNAKitTypes: [KitTypeKeyValueDTO]
+  getAllKitTypesInfo: [KitInfoDTO]
+  getUsersForNewProject: UsersForNewProjectDTO
+  designContextSwitch: String
+  getAvailableTimeZones: [TimeZoneDTO]
+  getServerTimeZone: TimeZoneDTO
+  getInstrumentLogById(logId: ID!): InstrumentLogDTO
+  getAllCustomProcesses: CustomProcessPageDTO
+  isValidCustomProcess(process: String!): Boolean
+  getCentrifugationProcesses(kitType: KitType!): [CentrifugationType!]!
+}
+
+type ReagentDetailedStatusDTO {
+  position: Int
+  label: String
+  code: String
+  group: String
+  capacity: BigDecimal
+  "# ul"
+  loadTime: String
+  "ISO8601"
+  expirationTime: String
+  "ISO8601"
+  isUsable: Boolean
+  lotNumber: String
+  partNumber: String
+  remainingVolume: BigDecimal
+  "# ul"
+  uniqueNumber: String
+  deadVolume: BigDecimal
+}
+
+type ReagentMissingRequirementDTO {
+  trayBottles: [ReagentRequirementDTO]
+  accessories: [ReagentRequirementDTO]
+}
+
+type ReagentRequirementDTO {
+  code: String
+  volume: Float
+}
+
+type RecentRunWorkItemDTO implements RecentWorkItemDTO {
+  id: ID!
+  name: String
+  updated: String
+  sheetUrl: String
+  reportUrl: String
+  runStatus: String
+}
+
+type RecentTemplateWorkItemDTO implements RecentWorkItemDTO {
+  id: ID!
+  name: String
+  updated: String
+  templateStatus: TemplateStatus
+}
+
+type RecentWorkDTO {
+  items: [RecentWorkItemDTO]
+}
+
+type ResultLinkDTO {
+  id: ID!
+}
+
+type RoleDTO {
+  id: ID!
+  name: String
+  description: String
+  type: RoleType
+  authority: String
+}
+
+type RunCheckInfoDTO {
+  id: ID!
+  status: RunStatus
+  printRequirementsMatching: PrintRequirementsMatchingDTO
+}
+
+type RunGroupPerProjectPageDTO {
+  data: [RunPerGroupDTO]
+  totalElementsCount: Int
+}
+
+type RunLightInfoDTO {
+  id: ID!
+  name: String
+  status: RunStatus!
+  scheduledStartDate: String
+  scheduledEndDate: String
+  updatedAt: String!
+  reportMetaLink: String
+  version: Int
+}
+
+type RunPerGroupDTO {
+  name: String
+  version: Int
+  queued: Int
+  completed: Int
+  status: String
+  numberOfPlates: Int
+  runs: [RunPerProjectDTO]
+}
+
+type RunPerInstrumentDTO {
+  id: ID!
+  name: String
+  projectName: String
+  status: String
+  countOfPassedSequences: Int
+  countOfTotalSequences: Int
+  shortestSequence: Int
+  longestSequence: Int
+  countOfMods: Int
+  startDate: String
+  completedDate: String
+  percentOfPassedOligos: Float
+  creator: UserInInstrumentRunDTO
+  metaLink: String
+  reportMetaLink: String
+  kitType: KitType
+  parentIDNAId: ID
+  project: ProjectByIdDTO
+  scheduledStartDate: String
+  endDate: String
+  updatedAt: String
+  customProcess: CustomProcessInfoDTO
+}
+
+type RunPerProjectDTO {
+  id: ID!
+  name: String
+  status: String
+  countOfPassedSequences: Int
+  countOfTotalSequences: Int
+  shortestSequence: Int
+  longestSequence: Int
+  countOfMods: Int
+  scheduledStartDate: String
+  scheduledEndDate: String
+  startDate: String
+  endDate: String
+  assignedInstrument: InstrumentPerRunDTO
+  percentOfPassedOligos: Float
+  metaLink: String
+  reportMetaLink: String
+  creator: UserInProjectDTO
+  plateType: PlateType
+  parentIDNAId: ID
+  parentIDNAName: String
+  kitType: KitType
+  version: Int
+  updatedAt: String
+  customProcess: CustomProcessInfoDTO
+}
+
+type RunPerProjectPageDTO {
+  data: [RunPerProjectDTO]
+  totalElementsCount: Int
+}
+
+type RunPerUserDTO {
+  id: ID!
+  name: String
+  status: String
+  countOfPassedSequences: Int
+  countOfTotalSequences: Int
+  shortestSequence: Int
+  longestSequence: Int
+  countOfMods: Int
+  scheduledStartDate: String
+  scheduledEndDate: String
+  startDate: String
+  endDate: String
+  updatedAt: String
+  assignedInstrument: InstrumentPerRunDTO
+  percentOfPassedOligos: Float
+  metaLink: String
+  project: ProjectByIdDTO
+  reportMetaLink: String
+  creator: UserInProjectDTO
+  plateType: PlateType
+  parentIDNAId: ID
+  parentIDNAName: String
+  kitType: KitType
+  version: Int
+  customProcess: CustomProcessInfoDTO
+}
+
+type RunPerUserPageDTO {
+  data: [RunPerUserDTO]
+  totalElementsCount: Int
+}
+
+type RunReagentBottleDTO {
+  label: String
+  partNumber: String
+  volumeMl: Float
+}
+
+type RunReagentDTO {
+  code: String
+  displayName: String
+  amount: Float
+  partNumber: String
+  bottles: [RunReagentBottleDTO]
+}
+
+type RunReagentDetailsDTO {
+  code: String
+  rawCode: String
+  rawGroupCode: String
+  displayName: String
+  partNumber: String
+  lotNumber: String
+  expireDate: String
+  days: String
+  amount: Float
+}
+
+type RunReagentGroupDTO {
+  name: String
+  code: String
+  reagents: [RunReagentDetailsDTO]
+}
+
+type RunReportDetailsDTO {
+  id: ID
+  name: String
+  description: String
+  status: RunStatus
+  project: ProjectByIdDTO
+  instrument: InstrumentByIdDTO
+  shortestSequence: Int
+  longestSequence: Int
+  countOfMods: Int
+  countOfClicks: Int
+  metaLink: String
+  reportMetaLink: String
+  startTime: String
+  endTime: String
+  scheduledStartTime: String
+  scheduledEndTime: String
+  durationInSeconds: Long
+  creator: UserInProjectDTO
+  percentOfPassedSequences: Float
+  countOfPassedSequences: Int
+  countOfSequences: Int
+  sequences: [RunSequenceDTO]
+  reagentGroups: [RunReagentGroupDTO]
+  estimatedReagents: [RunReagentDTO]
+  idnaTemplate: TemplatePerProjectDTO
+  plateType: PlateType
+  failMessage: String
+  yieldSettings: RunReportYieldSettingsDTO
+  volumeSettings: RunReportVolumeSettingsDTO
+  kitType: KitType
+  centrifugationType: CentrifugationType
+  customProcess: CustomProcessInfoDTO
+  errors: [String]
+  warnings: [String]
+  pqaInfo: PqaRunInfoDTO
+}
+
+type RunReportVolumeSettingsDTO {
+  min: Int!
+  max: Int!
+}
+
+type RunReportYieldSetting {
+  level: RunReportYieldLevel!
+  min: Int!
+  max: Int!
+}
+
+type RunReportYieldSettingsDTO {
+  values: [RunReportYieldSetting!]!
+}
+
+type RunSchedulerCreateResponseDTO {
+  id: ID
+  instrument: InstrumentByIdDTO
+  sheetId: ID
+  scheduledStartTime: String
+  scheduledEndTime: String
+  startTime: String
+  createdTime: String
+  endTime: String
+  status: String
+  description: String
+  metalink: String
+  longestSequence: Int
+  shortestSequence: Int
+  modifiedCount: Int
+  clicksCount: Int
+  sequenceCount: Int
+  user: UserInGroupDTO
+  durationInSeconds: Int
+  estimatedReagents: [RunReagentDTO]
+  idnaTemplate: TemplatePerProjectDTO
+  version: Int
+  centrifugationType: CentrifugationType
+  customProcess: CustomProcessInfoDTO
+}
+
+type RunSequenceDTO {
+  wellIndex: Int
+  well: String
+  data: String
+  prefixData: String
+  prefixNucChunks: [Nucleo]
+  prefixDataChunks: [String]
+  prefixes: [NucleotideDTO]
+  nucChunks: [Nucleo]
+  dataChunks: [String]
+  nucleotides: [NucleotideDTO]
+  "Using this directly produces very big JSON content"
+  name: String
+  length: Int
+  validationLength: Int
+  modsCount: Int
+  clicksCount: Int
+  usePlateNorm: Boolean
+  normalizationType: NormalizationType
+  targetConcetration: Float
+  actualConcentration: Float
+  yield: Float
+  volume: Float
+  purity: Float
+  errorType: String
+  status: RunSequenceStatus
+  modStatus: ModStatus
+  couplingRates: [CouplingRateDTO]
+  score: SequenceScore
+  blockNumber: Int
+  primer: Boolean @deprecated
+  primerType: PrimerType
+  sequenceId: ID
+  modified: Boolean
+  lastUpdatedDate: String
+  crossElution: CrossElutionDTO
+}
+
+type RunsPerInstrument {
+  status: String
+  count: Int
+}
+
+type RunsPerInstrumentPageDTO {
+  data: [RunPerInstrumentDTO]
+  totalElementsCount: Int
+}
+
+type RunsScheduleDTO {
+  id: ID
+  instrumentId: ID
+  sheetId: ID
+  scheduledStartTime: String
+  scheduledEndTime: String
+  startTime: String
+  endTime: String
+  status: String
+  templateName: String
+}
+
+type SequenceDTO {
+  id: ID
+  wellIndex: Int
+  well: String
+  data: String
+  name: String
+  length: Int
+  validationLength: Int
+  lengthWithPrefixes: Int
+  modsCount: Int
+  clicksCount: Int
+  usePlateNorm: Boolean
+  normalizationType: NormalizationType
+  targetConcetration: Float
+  purity: Float
+  prefixNucChunks: [Nucleo]
+  prefixDataChunks: [String]
+  sequenceWithoutModsOrClicks: String
+  prefixes: [NucleotideDTO]
+  nucChunks: [Nucleo]
+  dataChunks: [String]
+  nucleotides: [NucleotideDTO]
+  "Using this directly produces very big JSON content"
+  status: SequenceStatus
+  score: SequenceScore
+  nucErrors: [NucleotideErrorDTO]
+  nucWarnings: [NucleotideErrorDTO]
+  errors: [SequenceMessageDTO]
+  warnings: [SequenceMessageDTO]
+  errorGroups: [SequenceMessageGroup]
+  errorScoreValue: Int
+  blockNumber: Int
+  primer: Boolean @deprecated
+  primerType: PrimerType
+}
+
+type SequenceMessageDTO {
+  message: String
+  group: SequenceMessageGroup
+}
+
+type ServiceInfoDTO {
+  server: String
+  client: String
+  connection: String
+  status: ServiceStatus
+  message: String
+  type: ServiceType
+}
+
+type StationStatusDTO {
+  name: String
+  temperature: Float
+}
+
+type StepInfoDTO {
+  name: String
+  description: String
+}
+
+type Subscription {
+  subscribeForRunCheckInfo(runId: ID!): RunCheckInfoDTO
+  subscribeForRunReport(runId: ID!): RunReportDetailsDTO
+}
+
+type TemplateDetailsDTO {
+  id: ID!
+  name: String
+  status: TemplateStatus
+  format: ContentFormat
+  type: ContentType
+  plateType: PlateType
+  partNumber: String
+  kitType: KitType
+  createdAt: String
+  updatedAt: String
+  creator: UserInProjectDTO
+  projectOwner: UserInProjectDTO
+  countOfRuns: Int
+  countOfMods: Int
+  countOfClicks: Int
+  countOfSequences: Int
+  shortestSequence: Int
+  longestSequence: Int
+  averageSequence: Int
+  errors: [TemplateMessageDTO]
+  warnings: [TemplateMessageDTO]
+  sequences: [SequenceDTO]
+  emptySequences: [SequenceDTO]
+  prefixes: [SequenceDTO]
+  parentIDNAId: ID
+  parentIDNAName: String
+  exportMetaLink: String
+  normalizationType: NormalizationType
+  targetConcentration: Float
+  projectType: ProjectType
+}
+
+type TemplateMessageDTO {
+  messageGroup: TemplateMessageGroup
+  message: String
+}
+
+type TemplatePerProjectDTO {
+  id: ID!
+  name: String
+  status: TemplateStatus
+  format: ContentFormat
+  type: ContentType
+  plateType: PlateType
+  partNumber: String
+  kitType: KitType
+  createdAt: String
+  updatedAt: String
+  creator: UserInProjectDTO
+  projectOwner: UserInProjectDTO
+  countOfRuns: Int
+  countOfMods: Int
+  countOfClicks: Int
+  countOfSequences: Int
+  shortestSequence: Int
+  longestSequence: Int
+  averageSequence: Int
+  parentIDNAId: ID
+  parentIDNAName: String
+  exportMetaLink: String
+}
+
+type TemplatePerProjectPageDTO {
+  data: [TemplatePerProjectDTO]
+  totalElementsCount: Int
+}
+
+type TemplatePerUserDTO {
+  id: ID!
+  name: String
+  status: TemplateStatus
+  format: ContentFormat
+  type: ContentType
+  plateType: PlateType
+  partNumber: String
+  kitType: KitType
+  creatorId: ID
+  createdAt: String
+  updatedAt: String
+  creator: UserInProjectDTO
+  projectOwner: UserInProjectDTO
+  countOfRuns: Int
+  countOfMods: Int
+  countOfClicks: Int
+  countOfSequences: Int
+  shortestSequence: Int
+  longestSequence: Int
+  averageSequence: Int
+  project: ProjectByIdDTO
+  parentIDNAId: ID
+  parentIDNAName: String
+  exportMetaLink: String
+}
+
+type TemplatePerUserPageDTO {
+  data: [TemplatePerUserDTO]
+  totalElementsCount: Int
+}
+
+type TimeZoneDTO {
+  id: String!
+  label: String!
+  offset: Int!
+}
+
+type UploadReportResponseDTO {
+  id: ID
+  projectId: ID
+  projectName: String
+  instrumentId: ID
+  scheduledStartTime: String
+  scheduledEndTime: String
+  startTime: String
+  endTime: String
+  metaLink: String
+  reportMetaLink: String
+  description: String
+  status: String
+  failMessage: String
+}
+
+type UserDTO {
+  id: ID!
+  username: String
+  firstName: String
+  lastName: String
+}
+
+type UserDetailedDTO {
+  id: ID!
+  username: String
+  firstName: String
+  lastName: String
+  workPhone: String
+  cellPhone: String
+  homePhone: String
+  title: String
+  status: String
+  role: RoleDTO
+  avatar: String
+  groups: [GroupModel]
+  address: Address
+  mainOrganization: OrganizationDTO
+  organizationId: ID
+  defaultProjectId: ID
+  organizationName: String
+  countOfProjects: Int
+  updatedAt: String
+  createdAt: String
+  tooltipOnSeqPageIsClosed: Boolean
+  validLicense: Boolean
+  printingEnabled: Boolean
+  geneEnabled: Boolean
+  cloud: Boolean
+  timeZone: TimeZoneDTO
+  changePasswordAfterFirstLogin: Boolean
+}
+
+type UserForGroupByIdDTO {
+  id: ID!
+  firstName: String
+  lastName: String
+  status: String
+  role: RoleDTO
+  dateAdded: String
+}
+
+type UserInGroupDTO {
+  id: ID!
+  firstName: String
+  lastName: String
+  role: String
+}
+
+type UserInInstrumentDetailsDTO {
+  id: ID!
+  firstName: String
+  lastName: String
+  permission: String
+}
+
+type UserInInstrumentRunDTO {
+  id: ID!
+  firstName: String
+  lastName: String
+}
+
+type UserInProjectDTO {
+  id: ID!
+  firstName: String
+  lastName: String
+}
+
+type UserInProjectDetailsDTO {
+  id: ID!
+  firstName: String
+  lastName: String
+  accessPermission: AccessPermission
+  roles: [RoleDTO]
+}
+
+type UserListViewDTO {
+  id: ID!
+  username: String
+  firstName: String
+  lastName: String
+  title: String
+  status: String
+  groups: String
+  role: RoleDTO
+  updatedAt: String
+  createdAt: String
+}
+
+type UserPageDTO {
+  data: [UserListViewDTO]
+  totalElementsCount: Int
+}
+
+type UsersForNewProjectDTO {
+  owner: UserInProjectDetailsDTO
+  admin: UserInProjectDetailsDTO
+  members: [UserInProjectDetailsDTO]
+}
+
+type WasteBottleStatusDTO {
+  level: Int
+  needToBeEmptied: Boolean
+  underPressure: Boolean
+  connected: Boolean
+}
+
+type WasteStatusDTO {
+  bottleFillLevel: Int
+  "# 0 to 100 (%)"
+  bottleNeedsToBeEmptied: Boolean
+  bottleUnderPressure: Boolean
+  bottleConnected: Boolean
+  vacuumPressure: Float
+}
+
+type WellCountConfig {
+  wellCountMax: Int!
+  maxErrorMers: Int!
+}

@@ -1,0 +1,95 @@
+generated: '2026-08-04'
+method: derived
+source: graphql/dna-script-syntax-console.graphql
+scope: DNA Script SYNTAX Console GraphQL API (syntax.dnascript.com/graphql)
+standards:
+- id: graphql
+  conforms: true
+  evidence: >-
+    Endpoint answers the GraphQL __schema introspection query with a complete
+    242-type schema (Query 70 fields, Mutation 64 fields, Subscription 2 fields).
+- id: graphql-subscriptions
+  conforms: true
+  evidence: >-
+    Subscription root type is present with subscribeForRunCheckInfo and
+    subscribeForRunReport.
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI/Swagger served on any host. /openapi.json, /swagger.json,
+    /api-docs, /v3/api-docs, /redoc probed on www.dnascript.com,
+    syntax.dnascript.com and dev.dnascript.com — all 404, SPA-shell HTML, or 401.
+- id: asyncapi
+  conforms: false
+  evidence: No AsyncAPI document and no documented webhook surface.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No oauth2 security scheme, no /.well-known/oauth-authorization-server, no
+    documented OAuth flow. Auth appears to be a product session (see
+    authentication/dna-script-authentication.yml).
+- id: oidc
+  conforms: false
+  evidence: No /.well-known/openid-configuration on any host.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Unauthenticated errors return a Spring-style JSON envelope
+    {timestamp,status,error,path} with content-type application/json, not
+    application/problem+json.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 500 (www) / SPA shell (syntax).
+- id: rfc8615-well-known
+  conforms: false
+  evidence: No /.well-known/ document published on any host.
+- id: a2a-agent-card
+  conforms: false
+  evidence: >-
+    No agent card. /.well-known/agent-card.json is 404 on www and an HTML SPA
+    catch-all on syntax — rejected as a false positive per the A2A probe rules.
+- id: mcp
+  conforms: false
+  evidence: No hosted MCP server found; /mcp returns 405 from nginx.
+- id: llms-txt
+  conforms: false
+  evidence: /llms.txt returns 404 on dnascript.com and www.dnascript.com.
+- id: dmarc
+  conforms: true
+  evidence: 'dnascript.com publishes DMARC with p=reject (security/dna-script-domain-security.yml).'
+- id: spf
+  conforms: true
+  evidence: dnascript.com publishes an SPF record.
+- id: dnssec
+  conforms: false
+  evidence: dnascript.com is not DNSSEC-signed.
+- id: caa
+  conforms: false
+  evidence: No CAA record on dnascript.com.
+- id: hsts
+  conforms: false
+  evidence: >-
+    Neither www.dnascript.com nor syntax.dnascript.com returns a
+    Strict-Transport-Security header.
+governance_observations:
+- id: anonymous-introspection-enabled
+  note: >-
+    The production GraphQL endpoint answers full schema introspection without
+    credentials, while all queries and mutations require a session. Publishing a
+    contract is good; the common governance guidance is to either disable
+    introspection in production or publish the schema deliberately as a supported
+    developer artifact. Right now it is neither documented nor disabled.
+- id: no-public-api-program
+  note: >-
+    There is no developer portal, no reference documentation, no SDK, no
+    changelog, no status page and no terms covering API use. The SYNTAX Console
+    API is a product-internal surface, so the whole developer-ergonomics facet is
+    genuinely absent rather than merely unlinked.
+certifications_published: []
+compliance_program_published: false
+compliance_note: >-
+  A Quality Policy page exists (https://www.dnascript.com/resources/quality-policy/)
+  but publishes only downloadable EN/FR policy PDFs; no certification (ISO 9001,
+  ISO 13485, ISO 27001, SOC 2) is named on a public page. No trust center was
+  found at trust./security./compliance. on dnascript.com. No `Compliance` pointer
+  is emitted.

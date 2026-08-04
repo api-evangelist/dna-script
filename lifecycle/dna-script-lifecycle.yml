@@ -1,0 +1,51 @@
+generated: '2026-08-04'
+method: searched
+source: https://www.dnascript.com/ + https://syntax.dnascript.com/
+summary: >-
+  DNA Script publishes no API lifecycle surface. There is no status page, no
+  changelog, no versioning policy, no deprecation policy and no SLA reachable
+  without a customer relationship. Recorded as verified absence — no StatusPage or
+  Deprecation pointer is emitted, because neither exists.
+versioning:
+  scheme: none-published
+  current: null
+  docs: null
+  note: >-
+    The GraphQL endpoint is unversioned (/graphql, no version segment, no version
+    header observed). The schema does carry PRODUCT version surfaces —
+    getSupportedInstrumentVersions, getRedboxVersion, systemInfo, and
+    InstrumentDetailsDTO.softwareVersion / hardwareVersion / printJobVersion — but
+    those version the SYNTAX instrument fleet, not the API contract.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecated_operations: []
+  note: >-
+    Zero fields in the introspected schema carry isDeprecated=true. That is a fact
+    about the current schema, not evidence of a deprecation policy.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_probes:
+- {url: 'https://status.dnascript.com/', result: NXDOMAIN}
+- {url: 'https://www.dnascript.com/status', result: 404}
+changelog: null
+changelog_note: >-
+  The company publishes news and press releases
+  (https://www.dnascript.com/company/news/) and a blog
+  (https://www.dnascript.com/blog/), but neither is a dated product or API
+  changelog, so no changelog/ artifact is emitted.
+support:
+  url: https://www.dnascript.com/resources/support/
+  phone_us: '+1 888-693-4022'
+  phone_eu: '+33 1 84 88 02 42'
+  hours_us: Mon-Fri 08:00-21:00 EST
+  hours_eu: Mon-Fri 09:00-19:00 CET
+x-evidence:
+  fetched: '2026-08-04'
+  searched:
+  - https://www.dnascript.com/resources/
+  - https://www.dnascript.com/resources/support/
+  - https://www.dnascript.com/resources/faq/
+  - https://www.dnascript.com/company/news/

@@ -1,0 +1,79 @@
+generated: '2026-08-04'
+method: derived
+source: graphql/dna-script-syntax-console.graphql + observed HTTP responses from https://syntax.dnascript.com
+format: none
+format_note: >-
+  Not RFC 9457. Two distinct error envelopes were observed, and neither uses
+  application/problem+json. DNA Script publishes no error reference, so no code
+  registry could be searched — the catalogue below is derived strictly from the
+  introspected schema and from responses actually observed on the wire.
+envelopes:
+- id: transport
+  layer: HTTP (Spring Boot / nginx front)
+  content_type: application/json;charset=UTF-8
+  shape:
+    timestamp: string (e.g. "Aug 4, 2026 4:55:14 PM")
+    status: integer
+    error: string
+    path: string
+  observed:
+  - status: 401
+    error: Unauthorized
+    path: /graphql
+  - status: 401
+    error: Unauthorized
+    path: /api/openapi.json
+  - status: 404
+    error: Not Found
+    path: /api-docs
+  - status: 405
+    error: Not Allowed
+    path: /mcp
+    note: served by nginx as HTML, not JSON
+- id: graphql
+  layer: GraphQL response body (HTTP 200)
+  content_type: application/json
+  shape:
+    data: object|null
+    errors: array of GraphQL error objects
+  note: >-
+    Standard GraphQL error array. Not observed populated — only the introspection
+    query was issued and it succeeded; no data query was attempted.
+- id: domain
+  layer: application payload
+  schema_type: ErrorDTO
+  shape:
+    code: String
+    description: String
+  note: >-
+    ErrorDTO is the schema's own error carrier. Its `code` value space is not
+    published anywhere public, so no code list is asserted here.
+domain_error_carriers:
+- type: ErrorDTO
+  fields: [code, description]
+- type: InstrumentErrorDTO
+  used_by: instrument status reporting
+- type: NucleotideErrorDTO
+  used_by: SequenceDTO.nucErrors / nucWarnings
+- type: SequenceMessageDTO
+  used_by: SequenceDTO.errors / warnings
+- type: TemplateMessageDTO
+  used_by: TemplateDetailsDTO.errors / warnings
+- type: MissingRequirementsDTO
+  used_by: print/run requirement validation
+- type: ReagentMissingRequirementDTO
+  used_by: reagent requirement validation
+- type: OperationResultDTO
+  used_by: mutation result envelope
+problems: []
+problems_note: >-
+  Empty by design. Deriving a problem-type registry requires either OpenAPI
+  4xx/5xx responses (there is no OpenAPI) or a published error reference (there is
+  none). Only the observed statuses under `envelopes[].observed` are asserted.
+x-evidence:
+  fetched: '2026-08-04'
+  probes:
+  - {url: 'https://syntax.dnascript.com/graphql', method: GET, http_status: 401}
+  - {url: 'https://syntax.dnascript.com/api', http_status: 401}
+  - {url: 'https://syntax.dnascript.com/api-docs', http_status: 404}
+  - {url: 'https://syntax.dnascript.com/mcp', method: POST, http_status: 405}

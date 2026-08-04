@@ -1,0 +1,113 @@
+generated: '2026-08-04'
+method: derived
+source: graphql/dna-script-syntax-console.graphql
+scope: DNA Script SYNTAX Console GraphQL API
+docs: null
+docs_note: >-
+  DNA Script publishes no API documentation, so every convention below is derived
+  from the introspected schema or observed on the wire. Nothing here is a provider
+  claim.
+transport:
+  style: GraphQL over HTTPS
+  endpoint: https://syntax.dnascript.com/graphql
+  method: POST
+  content_type: application/json
+  get_supported: false
+  get_note: GET on /graphql returns 401.
+authentication:
+  style: product session (see authentication/dna-script-authentication.yml)
+  documented: false
+  anonymous_introspection: true
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No idempotency key parameter, header, input field or directive exists anywhere
+    in the 242-type schema. Mutations are not idempotent by contract. No
+    `Idempotency` pointer is emitted.
+pagination:
+  style: page-number + size
+  input_type: PageInfoDTO
+  params:
+    page: Int!
+    size: Int!
+  sort_input: SortInfoDTO
+  carried_by: >-
+    Filter input objects (InstrumentFilterDTO, GroupsFilterDTO,
+    InstallationFileFilterDTO, ...) each embed `page: PageInfoDTO!` and
+    `sort: SortInfoDTO!`; 21 of the 70 Query fields take a `filter` argument.
+  response_envelope:
+    shape:
+      data: '[<Entity>]'
+      totalElementsCount: Int
+    types:
+    - CustomProcessPageDTO
+    - GroupPageDTO
+    - InstallationFilePageDTO
+    - InstrumentPageDTO
+    - LoginEventPageDTO
+    - NotificationPageDTO
+    - ProjectPageDTO
+    - RunGroupPerProjectPageDTO
+    - RunPerProjectPageDTO
+    - RunPerUserPageDTO
+    - RunsPerInstrumentPageDTO
+    - TemplatePerProjectPageDTO
+    - TemplatePerUserPageDTO
+    - UserPageDTO
+  cursor_based: false
+  relay_connections: false
+field_selection:
+  style: native GraphQL selection sets
+  expansion: not applicable (nested objects are selected, not expanded)
+  sparse_fieldsets: native
+metadata:
+  user_defined_metadata: false
+  note: >-
+    No free-form metadata/tags map on any entity. Descriptive fields are fixed
+    (name, description, location, title).
+naming:
+  types: <Domain>DTO suffix on nearly all payload types (136 object types)
+  queries: get*/ validate*/ find*/ is* verbs
+  mutations: create*/ update*/ delete*/ restore*/ add*/ remove*/ deprecate*/ activate*
+  soft_delete: >-
+    delete*/restore* pairs exist for templates, projects and IDNA templates, and
+    deprecateGroup/activateGroup for groups — so deletion is soft/reversible for
+    those entities.
+request_tracing:
+  request_id_header: null
+  observed: false
+versioning: see lifecycle/dna-script-lifecycle.yml
+errors: see errors/dna-script-problem-types.yml
+rate_limiting:
+  documented: false
+  headers_observed: []
+  note: >-
+    No rate-limit headers were observed on the 401 responses; no rate-limit policy
+    is published. The schema does expose
+    OrganizationDataDTO.maxLoginFailedAttempts, which is an account-lockout
+    control, not API rate limiting.
+events:
+  style: GraphQL Subscriptions
+  operations:
+  - subscribeForRunCheckInfo
+  - subscribeForRunReport
+  webhooks: false
+  asyncapi: false
+  note: >-
+    A real push surface exists, but it is GraphQL Subscriptions inside the product
+    — not webhooks and not an AsyncAPI document. No `Webhooks` or `AsyncAPI`
+    pointer is emitted, because neither is what this is.
+bulk_and_files:
+  upload:
+  - createTemplate / createIDNAPlate accept uploaded sequence content
+  - uploadRunReport
+  content_formats:
+    ContentFormat: [CSV, FASTA]
+    ContentType: [UPLOAD, MANUAL]
+  download_links:
+  - TemplateDetailsDTO.exportMetaLink
+  - RunPerProjectDTO.metaLink
+  - RunPerProjectDTO.reportMetaLink
+  - ResultLinkDTO
+  - AttachmentLinkDTO

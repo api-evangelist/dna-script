@@ -1,0 +1,82 @@
+generated: '2026-08-04'
+method: probed
+source: live GET probes of every DNA Script host found in apis.yml
+summary: >-
+  No /.well-known/ discovery document was found on any DNA Script host. The
+  marketing site (www.dnascript.com, WordPress) answers 404 (or 500) for every
+  probed path. The SYNTAX Console host (syntax.dnascript.com) is a single-page
+  application whose catch-all route answers HTTP 200 with the same 520-byte HTML
+  shell for every /.well-known/* path — those 200s are NOT documents and are
+  recorded here as `spa-catchall` so a later run does not mistake them for hits.
+  Nothing is wired into apis.yml as a WellKnown pointer, because nothing was
+  actually published.
+hosts:
+- host: https://www.dnascript.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 500
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 500
+    file: null
+  - path: /llms.txt
+    status: 404
+    file: null
+- host: https://syntax.dnascript.com
+  note: >-
+    SPA catch-all. Every path below returned HTTP 200 with content-type text/html
+    and the identical 520-byte application shell, so none is a real document.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: spa-catchall
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 200
+    result: spa-catchall
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    result: spa-catchall
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 200
+    result: spa-catchall
+    file: null
+  - path: /.well-known/agent.json
+    status: 200
+    result: spa-catchall
+    file: null
+  - path: /api/.well-known/openid-configuration
+    status: 401
+    result: auth-gated
+    file: null
+x-evidence:
+  fetched: '2026-08-04'
+  hosts_probed:
+  - www.dnascript.com
+  - dnascript.com
+  - syntax.dnascript.com
+  - dev.dnascript.com
+  nonexistent_hosts:
+  - api.dnascript.com
+  - developer.dnascript.com
+  - docs.dnascript.com
+  - portal.dnascript.com
+  - app.dnascript.com
+  - status.dnascript.com
