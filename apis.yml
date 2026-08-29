@@ -16,6 +16,9 @@ description: 'DNA Script is a synthetic-biology company founded in 2014 in Paris
   and no documented API program; the Console Software is reached through a customer-authenticated
   GraphQL endpoint at syntax.dnascript.com.'
 url: https://raw.githubusercontent.com/api-evangelist/dna-script/refs/heads/main/apis.yml
+x-api-posture: no-product-api
+x-api-posture-basis: observed
+x-api-posture-note: "DNA Script publishes no public developer portal, no OpenAPI and no documented API program; the Console Software is reached through a customer-authenticated GraphQL endpoint at syntax.dnascript.com."
 deliveryModel:
   model: saas
   open_source: false
