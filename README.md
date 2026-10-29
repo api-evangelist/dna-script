@@ -64,5 +64,87 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-DNA Script is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/dna-script-stock
+DNA Script is a synthetic-biology company founded in 2014 in Paris, France, with US operations in South San Francisco, that pioneered Enzymatic DNA Synthesis (EDS) — a water-based, template-free, lower-carbon alternative to phosphoramidite chemistry. Its flagship product, the SYNTAX System, is a benchtop DNA printer that synthesizes, desalts, quantifies and normalizes up to 96 custom oligonucleotides in parallel (up to 120 nt on-instrument, up to 500 nt via ordered EDS oligos), giving laboratories same-day, on-premise production of custom DNA. The instrument is paired with SYNTAX System Software on the instrument touchscreen and a separate Console Software layer — offered cloud-hosted or on-premises — through which customers upload sequence files, design plate templates, schedule and monitor synthesis runs across a fleet of instruments, track reagent and consumable levels, and review run reports. The company also markets the ENCODEX DNA biomanufacturing platform for larger-scale enzymatic DNA production. DNA Script publishes no public developer portal, no OpenAPI and no documented API program; the Console Software is reached through a customer-authenticated GraphQL endpoint at syntax.dnascript.com.
+
+**Areas:** Company · Biotechnology · Synthetic Biology · Life Sciences · DNA Synthesis · Laboratory Instruments · Genomics · Scientific Computing · GraphQL
+
+## DNA Script on APIs.io
+
+Everything profiled for DNA Script is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/dna-script/](https://apis.io/providers/dna-script/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [DNA Script SYNTAX Console GraphQL API](https://apis.io/apis/dna-script/syntax-console/) — The GraphQL API behind DNA Script's SYNTAX Console Software — the fleet-management layer customers use to design plate templates, upload oligo sequence…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Dna Script Authentication](https://apis.io/security/dna-script/dna-script-authentication/)
+- [Dna Script Domain Security](https://apis.io/security/dna-script/dna-script-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.dnascript.com/)
+- [Support](https://www.dnascript.com/resources/support/)
+- [Blog](https://www.dnascript.com/blog/)
+- [Privacy policy](https://www.dnascript.com/wp-content/uploads/2021/03/DNA-SCRIPT-PRIVACY-POLICY.pdf)
+
+## API Evangelist rating
+
+**Kin Score 20.8** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 67.0 |
+| Contract quality | 35.1 |
+| Contract governance | 4.5 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 7.1 |
+| Access clarity | 17.1 |
+
+**Agent readiness 13.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.7** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/dna-script/](https://apis.io/providers/dna-script/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for DNA Script: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/dna-script/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
